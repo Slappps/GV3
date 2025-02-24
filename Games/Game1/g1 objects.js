@@ -15,7 +15,7 @@ class ball extends entity {
 
     setup() {
 
-        this.radius = 50
+        this.radius = 5
         this.slow = 0.1
         this.entitySpeed = Math.floor(Math.random() * 450) + 300;
         this.x = this.entityX
@@ -36,7 +36,9 @@ class ball extends entity {
             this.slope = -1 * this.slope
         }
         //---vgab-----
-        this.angle = Math.floor(Math.random() * 360) + 0;
+        this.angle = Math.floor(Math.random() * 360) + 0
+        this.dirX = 1
+        this.dirY = 1
 
 
     }
@@ -144,46 +146,58 @@ class ball extends entity {
 
     VectorGlideAndBounce(delta){
         
-        let radians = null
-        
+        let radians = null        
+
 
         if (this.entityX < 0 + this.radius) {
             this.entityX = 0 + this.radius
-            this.angle = (-1 * this.angle) + Math.random()
+            this.entitySpeed = this.entitySpeed - (this.entitySpeed * this.slow)
+            this.angle = this.angle + Math.floor(Math.random() * 10) + 5
+            this.dirX = this.dirX * -1
             console.log(this.angle)
 
-            this.entitySpeed = this.entitySpeed - (this.entitySpeed * this.slow)
+            
         }
 
         if (this.entityX > this.boundX - this.radius) {
             this.entityX = this.boundX - this.radius
-            this.angle = (-1 * this.angle) + Math.random()
-
             this.entitySpeed = this.entitySpeed - (this.entitySpeed * this.slow)
+            this.angle = this.angle + Math.floor(Math.random() * 10) + 5
+            this.dirX = this.dirX * -1
+
+            
         }
 
         if (this.entityY < 0 + this.radius) {
             this.entityY = 0 + this.radius
-            this.angle = (-1 * this.angle) + Math.random()
-
             this.entitySpeed = this.entitySpeed - (this.entitySpeed * this.slow)
+            this.angle = this.angle + Math.floor(Math.random() * 10) + 5
+            this.dirY = this.dirY * -1
+            
         }
 
         if (this.entityY > this.boundY - this.radius) {
             this.entityY = this.boundY - this.radius
-            this.angle = (-1 * this.angle) + Math.random()
-
             this.entitySpeed = this.entitySpeed - (this.entitySpeed * this.slow)
+            this.angle = this.angle + Math.floor(Math.random() * 10) + 5
+            this.dirY = this.dirY * -1
+            
+
         }
 
         //degrees to radians is deg * pi/180
         
         radians = this.angle * (Math.PI / 180)
-        this.vecX = Math.cos(radians)
-        this.vecY = Math.sin(radians)
+
+
+        //calculate (x,y)
+        this.vecX = Math.cos(radians) * this.dirX
+        this.vecY = Math.sin(radians) * this.dirY
 
         this.entityX += this.vecX * (this.entitySpeed * delta)
         this.entityY += -1*(this.vecY * (this.entitySpeed * delta))
+
+        
 
     }
 
@@ -192,9 +206,8 @@ class ball extends entity {
         //why is ctx accessable when this.myscreenX isnt
         ctx.beginPath()
         ctx.fillStyle = this.color
-        ctx.strokeStyle = "darkorange"
-        ctx.lineWidth = 5
-        ctx.arc(this.entityX, this.entityY, 50, 0, Math.PI * 2)
+        ctx.strokeStyle = this.color
+        ctx.arc(this.entityX, this.entityY, this.radius, 0, Math.PI * 2)
         ctx.fill()
         ctx.stroke()
 
@@ -203,7 +216,7 @@ class ball extends entity {
         ctx.strokeStyle = 'darkgreen'
         ctx.moveTo(this.entityX, this.entityY)
         ctx.lineTo(this.vecX+500, this.vecY+500)
-        ctx.stroke()
+        
 
     }
 

@@ -6,8 +6,8 @@ class MainScene {
     }
     gameSetup() {
         // are these global or is there scope limited?
-        this.playerX = 0
-        this.playerY = 0
+        this.playerX = -200
+        this.playerY = -200
         this.playerSpeed = 200
 
         this.circleX = 100
@@ -31,7 +31,7 @@ class MainScene {
 
         this.ball
         this.ballArray = []
-        this.count = 1
+        this.count = 2000
 
         for (let i = 0; i < this.count; i++) {
 
