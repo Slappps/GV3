@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Day 05 - Scenes and Engine</title>
+  <style>
+    * {
+      margin: 0px;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="123"> </canvas>
+
+
+  <script src="./GameEngine/entity.js"></script>
+  <script src="./GameEngine/collisions.js"></script>
+  <script src="./GameEngine/time.js"></script>
+  <script src="./GameEngine/Input.js"></script>
+
+  <script src="./Games/Game1/g1 objects.js"></script>
+  <script src="./Games/Game1/MainScene.js"></script>
+
+
+
+  <script>
+
+    function gameTick() {
+
+      currentScene.update()
+      currentScene.draw()
+
+    }
+
+    //set up game canvas
+    let canvas = document.getElementById('123')
+
+    let ctx = canvas.getContext("2d")
+
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+    canvas.style.background = "lightYellow"
+
+
+
+    window.addEventListener('keydown', Input.keydn)
+    window.addEventListener('keyup', Input.keyup)
+
+    //choose game
+    currentScene = new MainScene()
+    //setup for the specific game
+    currentScene.gameSetup()
+
+    setInterval(gameTick, Time.msBetweenFrames)
+
+
+
+
+  </script>
+</body>
+
+</html>
