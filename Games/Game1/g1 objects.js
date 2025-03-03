@@ -36,7 +36,8 @@ class ball extends entity {
             this.slope = -1 * this.slope
         }
         //---vgab-----
-        this.angle = Math.floor(Math.random() * 360) + 0
+        //this.angle = Math.floor(Math.random() * 360) + 0
+        this.angle = -30
         this.dirX = 1
         this.dirY = 1
 
